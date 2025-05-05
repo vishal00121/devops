@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-container
+    restart: unless-stopped
+    ports:
+      - "9090:9090"  # Jenkins Web UI port
+      - "50000:50000"  # Jenkins Agent communication port
+    volumes:
+      - jenkins_home:/var/jenkins_home  # Persistent volume for Jenkins data
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false  # Optional: Disable setup wizard on first start (optional)
+
+volumes:
+  jenkins_home:  # This will store Jenkins' data and settings persistently
